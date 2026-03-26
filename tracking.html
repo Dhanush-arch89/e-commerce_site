@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order | Aura</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/tracking.css">
+</head>
+<body>
+    <nav class="navbar" id="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="text-gradient">AURA.</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Catalogue</a>
+                <a href="tracking.html" class="nav-link active">Track Order</a>
+                <a href="admin.html" class="nav-link">Admin</a>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="auth.html" class="btn btn-outline" id="auth-btn">Sign In</a>
+                
+                <a href="cart.html" class="icon-btn" aria-label="Shopping Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content container animate-fade-in" id="app-root">
+       <div class="glass-panel tracking-container">
+           <div class="tracking-header">
+               <h2>Track Your <span class="text-gradient">Order</span></h2>
+               <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 1.05rem;">Enter your tracking or order number to get real-time delivery updates.</p>
+               
+               <form id="tracking-form" class="search-box">
+                   <input type="text" id="tracking-input" class="search-input" placeholder="e.g. AURA123456" required>
+                   <button type="submit" class="btn btn-primary btn-track" style="padding: 0 2rem;">Track Package</button>
+               </form>
+           </div>
+           
+           <!-- Tracking Result Container -->
+           <div id="tracking-result" class="tracking-result">
+               <!-- Injected via tracking.js -->
+           </div>
+
+           <!-- Initial Empty State -->
+           <div id="empty-state" style="text-align: center; padding: 4rem 0; color: var(--text-muted);">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1.5rem; opacity: 0.5;">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem; color: var(--text-main);">Ready to locate your package</h3>
+                <p>Your timeline and shipping carrier details will appear here once tracked.</p>
+           </div>
+       </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/tracking.js"></script>
+</body>
+</html>

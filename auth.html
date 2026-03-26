@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Aura</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/globals.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <nav class="navbar" id="main-nav">
+        <div class="nav-container" style="justify-content: center;">
+            <a href="index.html" class="logo">
+                <span class="text-gradient">AURA.</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="main-content" id="app-root">
+       <div class="auth-container animate-fade-in">
+           <div class="glass-panel auth-card">
+               
+               <!-- Login Form -->
+               <div id="login-view">
+                   <div class="auth-header">
+                       <h2>Welcome <span class="text-gradient">Back</span></h2>
+                       <p>Sign in to access your curated experience</p>
+                   </div>
+                   <form id="login-form">
+                       <div class="form-group">
+                           <label class="form-label">Email Address</label>
+                           <input type="email" class="form-input" id="login-email" required placeholder="you@example.com">
+                       </div>
+                       <div class="form-group">
+                           <label class="form-label" style="display:flex; justify-content:space-between;">
+                               Password
+                               <a href="#" style="color:var(--primary); font-size:0.85rem;">Forgot?</a>
+                           </label>
+                           <input type="password" class="form-input" id="login-password" required placeholder="••••••••">
+                       </div>
+                       <button type="submit" class="btn btn-primary auth-btn">Sign In</button>
+                   </form>
+                   <div class="auth-toggle">
+                       Don't have an account? <a href="#" id="show-register">Register here</a>
+                   </div>
+               </div>
+
+               <!-- Register Form -->
+               <div id="register-view" style="display: none;">
+                   <div class="auth-header">
+                       <h2>Create an <span class="text-gradient">Account</span></h2>
+                       <p>Join Aura for premium recommendations</p>
+                   </div>
+                   <form id="register-form">
+                       <div class="form-group">
+                           <label class="form-label">Full Name</label>
+                           <input type="text" class="form-input" id="reg-name" required placeholder="John Doe">
+                       </div>
+                       <div class="form-group">
+                           <label class="form-label">Email Address</label>
+                           <input type="email" class="form-input" id="reg-email" required placeholder="you@example.com">
+                       </div>
+                       <div class="form-group">
+                           <label class="form-label">Password</label>
+                           <input type="password" class="form-input" id="reg-password" required placeholder="••••••••">
+                       </div>
+                       <button type="submit" class="btn btn-primary auth-btn">Create Account</button>
+                   </form>
+                   <div class="auth-toggle">
+                       Already have an account? <a href="#" id="show-login">Sign in</a>
+                   </div>
+               </div>
+
+           </div>
+       </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
