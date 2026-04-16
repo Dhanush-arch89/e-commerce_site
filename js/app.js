@@ -138,5 +138,10 @@ function checkUserSession() {
             localStorage.removeItem('aura_user');
             window.location.href = 'auth.html';
         });
+
+        if (user.role === 'admin') {
+            const adminNavLink = document.getElementById('admin-nav-link');
+            if (adminNavLink) adminNavLink.style.display = '';
+        }
     }
 }
