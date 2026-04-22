@@ -31,62 +31,78 @@
                    <div class="checkout-section glass-panel">
                        <h3>Shipping Address</h3>
                        <div class="form-row">
-                           <div class="form-col">
-                               <label class="form-label">First Name</label>
-                               <input type="text" class="form-input" required>
-                           </div>
-                           <div class="form-col">
-                               <label class="form-label">Last Name</label>
-                               <input type="text" class="form-input" required>
-                           </div>
-                       </div>
-                       <div class="form-row">
-                           <div class="form-col">
-                               <label class="form-label">Address</label>
-                               <input type="text" class="form-input" required>
-                           </div>
-                       </div>
-                       <div class="form-row">
-                           <div class="form-col">
-                               <label class="form-label">City</label>
-                               <input type="text" class="form-input" required>
-                           </div>
-                           <div class="form-col">
-                               <label class="form-label">Zip Code</label>
-                               <input type="text" class="form-input" required>
-                           </div>
-                       </div>
+                            <div class="form-col">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" id="ship-fname" minlength="2" required>
+                            </div>
+                            <div class="form-col">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-input" id="ship-lname" minlength="2" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-input" id="ship-address" minlength="5" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-input" id="ship-city" minlength="2" required>
+                            </div>
+                            <div class="form-col">
+                                <label class="form-label">PIN Code</label>
+                                <input type="text" class="form-input" id="ship-pin" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 560001" required>
+                            </div>
+                        </div>
                    </div>
 
                    <div class="checkout-section glass-panel">
                        <h3>Payment Method</h3>
-                       <div class="payment-methods">
-                           <div class="payment-method selected" onclick="selectPayment(this)">
-                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                               Credit Card
-                           </div>
-                           <div class="payment-method" onclick="selectPayment(this)">
-                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                               Crypto
-                           </div>
-                       </div>
+                        <div class="payment-methods">
+                            <div class="payment-method selected" data-method="card" onclick="selectPayment(this)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                Credit Card
+                            </div>
+                            <div class="payment-method" data-method="gpay" onclick="selectPayment(this)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                Google Pay
+                            </div>
+                            <div class="payment-method" data-method="phonepe" onclick="selectPayment(this)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                                PhonePe
+                            </div>
+                        </div>
                        
-                       <div class="form-row">
-                           <div class="form-col">
-                               <label class="form-label">Card Number</label>
-                               <input type="text" class="form-input" placeholder="0000 0000 0000 0000" pattern="[0-9 ]{16,19}" required>
-                           </div>
-                       </div>
-                       <div class="form-row">
-                           <div class="form-col">
-                               <label class="form-label">Expiry (MM/YY)</label>
-                               <input type="text" class="form-input" placeholder="MM/YY" required>
-                           </div>
-                           <div class="form-col">
-                               <label class="form-label">CVC</label>
-                               <input type="text" class="form-input" placeholder="123" required>
-                           </div>
-                       </div>
+                        <!-- Card Fields -->
+                        <div id="card-fields">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="form-label">Card Number</label>
+                                    <input type="text" class="form-input" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="form-label">Expiry (MM/YY)</label>
+                                    <input type="text" class="form-input" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                <div class="form-col">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-input" id="card-cvv" placeholder="123" maxlength="4">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- UPI Fields (hidden by default) -->
+                        <div id="upi-fields" style="display:none;">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="form-label">UPI ID</label>
+                                    <input type="text" class="form-input" id="upi-id" placeholder="yourname@upi">
+                                </div>
+                            </div>
+                        </div>
                    </div>
 
                </form>
@@ -103,22 +119,22 @@
                
                <div class="summary-item">
                    <span class="summary-item-title">Subtotal</span>
-                   <span id="chk-subtotal">$0.00</span>
-               </div>
-               <div class="summary-item">
-                   <span class="summary-item-title">Shipping</span>
-                   <span id="chk-shipping">$0.00</span>
-               </div>
-               <div class="summary-item">
-                   <span class="summary-item-title">Tax</span>
-                   <span id="chk-tax">$0.00</span>
-               </div>
-               
-               <div class="summary-divider"></div>
-               
-               <div class="total-row">
-                   <span>Total</span>
-                   <span class="text-gradient" id="chk-total">$0.00</span>
+                    <span id="chk-subtotal">₹0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-item-title">Shipping</span>
+                    <span id="chk-shipping">₹0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-item-title">Tax (GST)</span>
+                    <span id="chk-tax">₹0.00</span>
+                </div>
+                
+                <div class="summary-divider"></div>
+                
+                <div class="total-row">
+                    <span>Total</span>
+                    <span class="text-gradient" id="chk-total">₹0.00</span>
                </div>
                
                <button type="submit" form="checkout-form" class="btn btn-primary complete-order-btn" id="submit-order-btn">Pay Now</button>
@@ -135,12 +151,12 @@
             </div>
             <h2>Payment <span class="text-gradient">Successful</span></h2>
             <p style="margin: 1rem 0 2rem; color: var(--text-muted);">Thank you for your order! Your tracking number is #<strong id="mock-tracking"></strong>.</p>
-            <a href="tracking.html" class="btn btn-primary" style="width: 100%;">Track Order</a>
+            <a href="tracking.html" class="btn btn-primary" style="width: 100%;">My Orders</a>
             <a href="index.html" class="btn btn-outline" style="width: 100%; margin-top: 1rem;">Continue Shopping</a>
         </div>
     </div>
 
-    <script src="js/app.js"></script>
-    <script src="js/checkout.js"></script>
+    <script src="js/app.js?v=3"></script>
+    <script src="js/checkout.js?v=3"></script>
 </body>
 </html>

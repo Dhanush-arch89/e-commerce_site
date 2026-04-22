@@ -30,6 +30,25 @@ try {
         $products = $stmt->fetchAll();
         echo json_encode(['success' => true, 'products' => $products]);
 
+    } elseif ($action === 'create') {
+        // Admin: Add a new product to the database
+        $input = json_decode(file_get_contents('php://input'), true);
+        $title = $input['title'] ?? '';
+        $price = $input['price'] ?? 0;
+        $category = $input['category'] ?? '';
+        $image_url = $input['image_url'] ?? '';
+        $badge = $input['badge'] ?? null;
+
+        if (empty($title) || $price <= 0 || empty($category) || empty($image_url)) {
+            echo json_encode(['success' => false, 'error' => 'Missing required fields: title, price, category, image_url']);
+            exit;
+        }
+
+        $stmt = $pdo->prepare("INSERT INTO products (title, price, category, image_url, badge) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$title, $price, $category, $image_url, $badge]);
+
+        echo json_encode(['success' => true, 'product_id' => $pdo->lastInsertId(), 'message' => 'Product added successfully']);
+
     } else {
         echo json_encode(['success' => false, 'error' => 'Invalid action parameter']);
     }

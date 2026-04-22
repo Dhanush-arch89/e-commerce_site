@@ -70,6 +70,40 @@ try {
         ");
         echo json_encode(['success' => true, 'orders' => $stmt->fetchAll()]);
 
+    } elseif ($action === 'update_status') {
+        // Admin: Update order status
+        $order_id = $input['order_id'] ?? null;
+        $status = $input['status'] ?? '';
+        $allowed = ['Pending', 'Processing', 'In Transit', 'Delivered', 'Completed', 'Cancelled'];
+
+        if (!$order_id || !in_array($status, $allowed)) {
+            echo json_encode(['success' => false, 'error' => 'Invalid order ID or status value']);
+            exit;
+        }
+
+        $stmt = $pdo->prepare("UPDATE orders SET status = ? WHERE id = ?");
+        $stmt->execute([$status, $order_id]);
+
+        echo json_encode(['success' => true, 'message' => 'Status updated']);
+
+    } elseif ($action === 'user_orders') {
+        // Fetch all orders for a specific logged-in user
+        $user_id = $_GET['user_id'] ?? null;
+        if (!$user_id) {
+            echo json_encode(['success' => false, 'error' => 'User ID required']);
+            exit;
+        }
+
+        $stmt = $pdo->prepare("
+            SELECT o.*, u.name as customer_name 
+            FROM orders o 
+            JOIN users u ON o.user_id = u.id 
+            WHERE o.user_id = ?
+            ORDER BY o.created_at DESC
+        ");
+        $stmt->execute([$user_id]);
+        echo json_encode(['success' => true, 'orders' => $stmt->fetchAll()]);
+
     } else {
         echo json_encode(['success' => false, 'error' => 'Invalid action']);
     }

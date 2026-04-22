@@ -1,0 +1,8 @@
+﻿name	email	password_hash
+Admin User	admin@aura.com	$2y$10$QO0kO/q5E4H5hD5Z.zP..u8IhxYkO/c0jB8mCw/LwN2.t5o/.A1vK
+John Doe	john@example.com	$2y$10$QO0kO/q5E4H5hD5Z.zP..u8IhxYkO/c0jB8mCw/LwN2.t5o/.A1vK
+cc	cc@gmail.com	$2y$10$FA8.NSMr0XAAHsk1OuzarOvQ87PIbyU0NhQOl54bYimoUZahT8iBu
+vv	vv@aura.com	$2y$10$fKKRMJM3b73e2yWMsGbcouP7DBkEXP/qf.wL1bVIRYhLF0Ug5AMHu
+owais	dhanushkharvi89@gmail.com	$2y$10$Pc/UmRhMchXfkbe1IjwqpOMdsOAw687eJb4IXxsQg9zWF/vs5I5hi
+nishanth	nn@gmail.com	$2y$10$0kwDbBPuA6sr8jjCCJCx9upPhdmmm4C63X4owuuub1W0eXKCeLMe6
+bb	bb@gmail.com	$2y$10$X7IAWzQJMO1lgA/j9xqzQe3NuXuwz.7VBefPJCMlihmHR33JjjYhG

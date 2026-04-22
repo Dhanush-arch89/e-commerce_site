@@ -1,16 +1,16 @@
 /* admin.css */
 body {
-    background-color: var(--surface); /* Darker context for admin separation */
+    background-color: var(--surface);
 }
 
 .admin-layout {
     display: flex;
-    min-height: calc(100vh - 73px); /* Accounts for navbar */
+    min-height: calc(100vh - 73px);
 }
 
 .admin-sidebar {
     width: 260px;
-    background: var(--background); /* Pure dark */
+    background: var(--background);
     border-right: 1px solid var(--border);
     padding: 2rem 0;
     flex-shrink: 0;
@@ -33,7 +33,7 @@ body {
 }
 
 .sidebar-link:hover, .sidebar-link.active {
-    background: rgba(139, 92, 246, 0.08); /* light primary */
+    background: rgba(139, 92, 246, 0.08);
     color: var(--primary);
     border-right-color: var(--primary);
 }
@@ -51,7 +51,9 @@ body {
     margin-bottom: 3rem;
 }
 
-/* Stats Cards */
+/* =========================================================================
+   Stats Cards
+   ========================================================================= */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -102,7 +104,9 @@ body {
     font-weight: 600;
 }
 
-/* Data Table */
+/* =========================================================================
+   Data Table
+   ========================================================================= */
 .admin-table-container {
     background: var(--background);
     border: 1px solid var(--border);
@@ -151,6 +155,9 @@ body {
     background: var(--surface-hover);
 }
 
+/* =========================================================================
+   Status Pills & Dropdowns
+   ========================================================================= */
 .status-pill {
     padding: 0.35rem 0.85rem;
     border-radius: var(--radius-full);
@@ -170,6 +177,268 @@ body {
     color: #f59e0b;
 }
 
+.status-cancelled {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.status-transit {
+    background: rgba(14, 165, 233, 0.15);
+    color: #0ea5e9;
+}
+
+/* Interactive Status Select Dropdown */
+.status-select {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    padding-right: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-select:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.status-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* Color-coded status select backgrounds */
+.status-color-pending {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.status-color-processing {
+    background-color: rgba(139, 92, 246, 0.1);
+    color: #a78bfa;
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.status-color-in-transit {
+    background-color: rgba(14, 165, 233, 0.1);
+    color: #0ea5e9;
+    border-color: rgba(14, 165, 233, 0.3);
+}
+
+.status-color-delivered {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.status-color-completed {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.status-color-cancelled {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Product Category Pill */
+.product-cat-pill {
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--primary-hover);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* =========================================================================
+   Modal
+   ========================================================================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+}
+
+.modal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 540px;
+    padding: 0;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    opacity: 0;
+}
+
+.modal-overlay.active .modal-card {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+    color: var(--text-main);
+}
+
+.modal-close-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-close-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+#add-product-form {
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.glass-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: var(--transition);
+}
+
+.glass-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+.glass-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+/* =========================================================================
+   Toast Notification
+   ========================================================================= */
+.admin-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.admin-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-success {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+}
+
+.toast-error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+/* =========================================================================
+   Responsive
+   ========================================================================= */
 @media (max-width: 900px) {
     .admin-layout {
         flex-direction: column;
@@ -191,9 +460,24 @@ body {
         border-right: none;
         border-bottom: 3px solid transparent;
         padding: 1rem 1.5rem;
+        white-space: nowrap;
     }
 
     .sidebar-link.active {
         border-bottom-color: var(--primary);
+    }
+
+    .admin-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .modal-card {
+        max-width: 95vw;
+        margin: 1rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
     }
 }
