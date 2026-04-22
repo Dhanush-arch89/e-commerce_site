@@ -55,7 +55,7 @@ async function renderCart() {
                 <img src="${item.image}" alt="${item.title}" class="cart-item-img">
                 <div class="cart-item-details">
                     <div class="cart-item-title">${item.title}</div>
-                    <div class="cart-item-price">$${price.toFixed(2)}</div>
+                    <div class="cart-item-price">₹${price.toFixed(2)}</div>
                     <div class="cart-item-actions">
                         <div class="quantity-controls">
                             <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
@@ -66,7 +66,7 @@ async function renderCart() {
                     </div>
                 </div>
                 <div class="cart-item-total text-gradient">
-                    $${itemTotal.toFixed(2)}
+                    ₹${itemTotal.toFixed(2)}
                 </div>
             `;
             container.appendChild(div);
@@ -111,8 +111,8 @@ window.removeItem = async function(productId) {
 };
 
 function updateSummary(subtotal) {
-    const shipping = subtotal > 0 ? 15.00 : 0;
-    const tax = subtotal * 0.08;
+    const shipping = subtotal > 0 ? 99.00 : 0;
+    const tax = subtotal * 0.18; // 18% GST
     const total = subtotal + shipping + tax;
     
     // Store localized totals for checkout summary
@@ -130,7 +130,7 @@ function updateSummary(subtotal) {
     for (const [id, value] of Object.entries(elements)) {
         const el = document.getElementById(id);
         if (el) {
-            el.textContent = `$${value.toFixed(2)}`;
+            el.textContent = `₹${value.toFixed(2)}`;
         }
     }
 }

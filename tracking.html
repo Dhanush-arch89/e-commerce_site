@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Order | Aura</title>
+    <title>My Orders | Aura</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,33 +41,66 @@
     </nav>
 
     <main class="main-content container animate-fade-in" id="app-root">
-       <div class="glass-panel tracking-container">
-           <div class="tracking-header">
-               <h2>Track Your <span class="text-gradient">Order</span></h2>
-               <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 1.05rem;">Enter your tracking or order number to get real-time delivery updates.</p>
-               
-               <form id="tracking-form" class="search-box">
-                   <input type="text" id="tracking-input" class="search-input" placeholder="e.g. AURA123456" required>
-                   <button type="submit" class="btn btn-primary btn-track" style="padding: 0 2rem;">Track Package</button>
-               </form>
-           </div>
-           
-           <!-- Tracking Result Container -->
-           <div id="tracking-result" class="tracking-result">
-               <!-- Injected via tracking.js -->
-           </div>
+        <!-- My Orders List (shown when logged in) -->
+        <div id="my-orders-section" style="display: none;">
+            <div class="orders-page-header">
+                <div>
+                    <h2>My <span class="text-gradient">Orders</span></h2>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Track all your purchases and delivery updates in one place.</p>
+                </div>
+            </div>
 
-           <!-- Initial Empty State -->
-           <div id="empty-state" style="text-align: center; padding: 4rem 0; color: var(--text-muted);">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1.5rem; opacity: 0.5;">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                    <line x1="8" y1="21" x2="16" y2="21"></line>
-                    <line x1="12" y1="17" x2="12" y2="21"></line>
-                </svg>
-                <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem; color: var(--text-main);">Ready to locate your package</h3>
-                <p>Your timeline and shipping carrier details will appear here once tracked.</p>
-           </div>
-       </div>
+            <!-- Order Cards Container -->
+            <div id="my-orders-list">
+                <!-- Injected via tracking.js -->
+            </div>
+        </div>
+
+        <!-- Track by ID (shown when NOT logged in, or as a fallback) -->
+        <div id="track-by-id-section">
+            <div class="glass-panel tracking-container">
+                <div class="tracking-header">
+                    <h2>Track Your <span class="text-gradient">Order</span></h2>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 1.05rem;">Sign in to see all your orders, or enter a tracking number below.</p>
+                    
+                    <form id="tracking-form" class="search-box">
+                        <input type="text" id="tracking-input" class="search-input" placeholder="e.g. AURA123456" required>
+                        <button type="submit" class="btn btn-primary btn-track" style="padding: 0 2rem;">Track Package</button>
+                    </form>
+                </div>
+                
+                <!-- Tracking Result Container -->
+                <div id="tracking-result" class="tracking-result">
+                    <!-- Injected via tracking.js -->
+                </div>
+
+                <!-- Initial Empty State -->
+                <div id="empty-state" style="text-align: center; padding: 4rem 0; color: var(--text-muted);">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1.5rem; opacity: 0.5;">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem; color: var(--text-main);">Ready to locate your package</h3>
+                    <p>Your timeline and shipping carrier details will appear here once tracked.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Detail Modal Overlay -->
+        <div class="order-detail-overlay" id="order-detail-overlay" style="display: none;">
+            <div class="order-detail-card">
+                <div class="order-detail-header">
+                    <h3 id="detail-title">Order Details</h3>
+                    <button class="modal-close-btn" id="detail-close-btn" aria-label="Close">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div id="detail-content">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="js/app.js?v=2"></script>

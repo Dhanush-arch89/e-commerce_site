@@ -66,6 +66,23 @@ if ($action === 'register') {
          echo json_encode(['success' => false, 'error' => 'Login failed: ' . $e->getMessage()]);
     }
 
+} elseif ($action === 'list_users') {
+    // Admin: fetch all users with order stats
+    try {
+        $stmt = $pdo->query("
+            SELECT u.id, u.name, u.email, u.role, u.created_at,
+                   COUNT(o.id) AS total_orders,
+                   COALESCE(SUM(o.total_amount), 0) AS total_spent
+            FROM users u
+            LEFT JOIN orders o ON u.id = o.user_id
+            GROUP BY u.id
+            ORDER BY u.created_at DESC
+        ");
+        echo json_encode(['success' => true, 'users' => $stmt->fetchAll()]);
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'error' => 'Failed to fetch users: ' . $e->getMessage()]);
+    }
+
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid action specified']);
 }

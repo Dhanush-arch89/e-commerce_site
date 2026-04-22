@@ -31,6 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initApp() {
+    // --- Admin Route Guard ---
+    // If the logged-in user is an admin and they are NOT on admin.html or auth.html,
+    // redirect them to admin.html. Admins should only see the admin dashboard.
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const adminAllowedPages = ['admin.html', 'auth.html'];
+    const sessionUser = JSON.parse(localStorage.getItem('aura_user'));
+    
+    if (sessionUser && sessionUser.role === 'admin' && !adminAllowedPages.includes(currentPage)) {
+        window.location.href = 'admin.html';
+        return; // Stop further initialization on the user page
+    }
+
     updateCartBadge();
     checkUserSession();
     
