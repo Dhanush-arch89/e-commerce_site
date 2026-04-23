@@ -52,7 +52,7 @@ function initApp() {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
                 navbar.style.boxShadow = 'var(--shadow-md)';
-                navbar.style.background = 'rgba(20, 23, 31, 0.9)';
+                navbar.style.background = 'rgba(238, 242, 255, 0.95)';
             } else {
                 navbar.style.boxShadow = 'none';
                 navbar.style.background = 'var(--glass-bg)';

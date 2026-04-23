@@ -5,15 +5,28 @@ $action = $_GET['action'] ?? 'all'; // Default fetch
 
 try {
     if ($action === 'all') {
-        // Get all products or filter by category
+        // Get all products or filter by category and search
         $category = $_GET['category'] ?? 'all';
+        $search = $_GET['search'] ?? '';
+        
+        $sql = "SELECT * FROM products WHERE 1=1";
+        $params = [];
         
         if ($category !== 'all') {
-            $stmt = $pdo->prepare("SELECT * FROM products WHERE category = ? ORDER BY id ASC");
-            $stmt->execute([$category]);
-        } else {
-            $stmt = $pdo->query("SELECT * FROM products ORDER BY id ASC");
+            $sql .= " AND category = ?";
+            $params[] = $category;
         }
+        
+        if (!empty($search)) {
+            $sql .= " AND (title LIKE ? OR category LIKE ?)";
+            $params[] = "%$search%";
+            $params[] = "%$search%";
+        }
+        
+        $sql .= " ORDER BY id ASC";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
         
         $products = $stmt->fetchAll();
         echo json_encode(['success' => true, 'products' => $products]);

@@ -1,20 +1,20 @@
 :root {
-  /* Color Palette - Premium Dark Mode */
-  --primary: #8b5cf6;
-  --primary-hover: #a78bfa;
-  --primary-glow: rgba(139, 92, 246, 0.4);
-  --secondary: #0ea5e9;
-  --secondary-glow: rgba(14, 165, 233, 0.4);
-  --background: #0f1117;
-  --surface: #1e212b;
-  --surface-hover: #272a38;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border: #334155;
+  /* Color Palette - White and Navy Blue Theme */
+  --primary: #1e3a8a; /* Deep Navy Blue */
+  --primary-hover: #1e40af;
+  --primary-glow: rgba(30, 58, 138, 0.2);
+  --secondary: #3b82f6; /* Bright Blue for accents/gradients */
+  --secondary-glow: rgba(59, 130, 246, 0.2);
+  --background: #eef2ff; /* Light Navy Blue / Soft Indigo */
+  --surface: #ffffff; /* Crisp white for cards/panels */
+  --surface-hover: #f8fafc;
+  --text-main: #0f172a; /* Very dark slate for primary text */
+  --text-muted: #475569; /* Slate for secondary text */
+  --border: #e2e8f0; /* Light border */
   
   /* Glassmorphism */
-  --glass-bg: rgba(30, 33, 43, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(238, 242, 255, 0.85); /* Matched to background */
+  --glass-border: rgba(30, 58, 138, 0.15);
   
   /* Effects */
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
@@ -137,13 +137,13 @@ button {
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  color: #ffffff;
+  box-shadow: 0 4px 15px var(--primary-glow);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+  box-shadow: 0 8px 25px var(--primary-glow);
   filter: brightness(1.1);
 }
 
@@ -155,7 +155,7 @@ button {
 
 .btn-outline:hover {
   border-color: var(--primary);
-  background: rgba(139, 92, 246, 0.1);
+  background: var(--primary-glow);
 }
 
 /* =========================================================================

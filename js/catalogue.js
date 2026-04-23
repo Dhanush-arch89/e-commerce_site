@@ -31,16 +31,58 @@ async function initCatalogue() {
         document.getElementById('main-catalogue-grid').innerHTML = '<p style="color:red">Failed to connect to database. Is XAMPP running?</p>';
     }
 
-    // Server-Side Filter Logic
+    // Server-Side Filter & Search Logic
     const filterSelect = document.getElementById('category-filter');
-    if (filterSelect) {
-        filterSelect.addEventListener('change', async (e) => {
-            const category = e.target.value;
-            const res = await fetch(`backend/api/products.php?action=all&category=${category}`);
+    const searchInput = document.getElementById('nav-search-input');
+    const searchContainer = document.getElementById('nav-search-container');
+    
+    if (searchContainer) {
+        searchContainer.style.display = 'block'; // Ensure it's visible on catalogue page
+    }
+    
+    let currentCategory = 'all';
+    let currentSearch = '';
+
+    const fetchFilteredProducts = async () => {
+        let url = `backend/api/products.php?action=all`;
+        if (currentCategory !== 'all') {
+            url += `&category=${currentCategory}`;
+        }
+        if (currentSearch.trim() !== '') {
+            url += `&search=${encodeURIComponent(currentSearch.trim())}`;
+        }
+        
+        try {
+            const res = await fetch(url);
             const data = await res.json();
             if (data.success) {
                 renderGrid('main-catalogue-grid', data.products);
+            } else {
+                renderErrorMessage('main-catalogue-grid', data.error);
             }
+        } catch (e) {
+            console.error("Filter/Search failed:", e);
+        }
+    };
+
+    if (filterSelect) {
+        filterSelect.addEventListener('change', async (e) => {
+            currentCategory = e.target.value;
+            await fetchFilteredProducts();
+        });
+    }
+
+    if (searchInput) {
+        let timeout;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(async () => {
+                currentSearch = e.target.value;
+                if (currentSearch.trim() !== '') {
+                    document.getElementById('catalogue').scrollIntoView({behavior: 'smooth'});
+                }
+                await fetchFilteredProducts();
+            }, 300);
         });
     }
 }
@@ -75,6 +117,8 @@ function renderGrid(containerId, products) {
         card.style.animationDelay = `${delay}s`;
         card.style.opacity = '0';
         card.style.animationFillMode = 'forwards';
+        card.style.cursor = 'pointer';
+        card.onclick = () => openProductModal(product);
         
         const badgeHtml = product.badge ? `<div class="product-badge">${product.badge}</div>` : '';
         const price = parseFloat(product.price).toFixed(2);
@@ -88,7 +132,7 @@ function renderGrid(containerId, products) {
                 <span class="product-category">${product.category}</span>
                 <h3 class="product-title">${product.title}</h3>
                 <div class="product-price">₹${price}</div>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id}, event)">
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, event)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                     Add to Cart
                 </button>
@@ -143,3 +187,44 @@ window.addToCart = async function(productId, event) {
         btn.disabled = false;
     }, 1500);
 };
+
+// Modal Logic
+window.openProductModal = function(product) {
+    const modal = document.getElementById('product-detail-modal');
+    if (!modal) return;
+    
+    document.getElementById('modal-product-image').src = product.image_url;
+    document.getElementById('modal-product-image').alt = product.title;
+    document.getElementById('modal-product-category').textContent = product.category;
+    document.getElementById('modal-product-title').textContent = product.title;
+    document.getElementById('modal-product-price').textContent = '₹' + parseFloat(product.price).toFixed(2);
+    
+    const addToCartBtn = document.getElementById('modal-add-to-cart-btn');
+    addToCartBtn.onclick = (event) => {
+        addToCart(product.id, event);
+    };
+    
+    modal.style.display = 'flex';
+    // Small delay to allow display:flex to apply before setting opacity for transition
+    setTimeout(() => {
+        modal.style.opacity = '1';
+    }, 10);
+};
+
+window.closeProductModal = function() {
+    const modal = document.getElementById('product-detail-modal');
+    if (!modal) return;
+    
+    modal.style.opacity = '0';
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+};
+
+// Close modal when clicking outside the card
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('product-detail-modal');
+    if (modal && e.target === modal) {
+        closeProductModal();
+    }
+});
